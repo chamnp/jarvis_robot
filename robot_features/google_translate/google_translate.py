@@ -3,11 +3,12 @@
 from googletrans import Translator
 from untils.logger import init_logger
 import logging
+from robot_features.jarvis import Jarvis
 
 logger = logging.getLogger(__name__)
 
 
-class GoogleTranslate:
+class GoogleTranslate(Jarvis):
     """
     Translate English to Vietnam
     """
@@ -23,10 +24,12 @@ class GoogleTranslate:
         """
         trans = Translator().translate(text=text, dest=self.des_language, src=self.src_language)
         logger.debug(trans.text)
+        Jarvis.speak(trans.text)
         return trans.text
 
 
 if __name__ == '__main__':
     init_logger()
-    translate = GoogleTranslate().translate()
+    text = 'Speak'
+    translate = GoogleTranslate().translate(text)
     logger.debug(translate)
